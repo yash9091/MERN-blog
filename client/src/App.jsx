@@ -23,7 +23,7 @@ export default function App() {
       <Route path='/Sign-up' element={<SignUp/>}></Route>
       <Route element={<PrivateRoute/>}>
        <Route path='/dashboard' element={<Dashboard/>}></Route>
- 
+       
       </Route>
 
        

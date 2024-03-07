@@ -1,14 +1,15 @@
-import React, { useState,useRef,useEffect } from 'react'
+import  { useState,useRef,useEffect } from 'react'
 import {  useDispatch, useSelector } from 'react-redux'
 import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import {getStorage, ref, uploadBytesResumable, getDownloadURL,} from 'firebase/storage'
 import { app } from '../firebase'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { updateStart,updateSuccess,updateFailure,deleteUserStart,deleteUserSuccess ,signoutSuccess} from '../redux/user/userSlice'
+import { updateStart,updateSuccess,updateFailure,deleteUserStart,deleteUserSuccess ,signoutSuccess, deleteUserFailure} from '../redux/user/userSlice'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 // import { syncIndexes } from 'mongoose'
+
 export default function DashProfile() {
     const {currentUser, error} = useSelector(state => state.user)
     const [imageFile, setImageFile] = useState(null);
@@ -48,7 +49,7 @@ export default function DashProfile() {
             
       //     }
       //   }
-      // }
+    // }
       setImageFileUploading(true)
       setImageFileUploadError(null);
       const storage = getStorage(app);
@@ -63,7 +64,7 @@ export default function DashProfile() {
   
           setImageFileUploadProgress(progress.toFixed(0));
         },
-        (error) => {
+        () => {
           setImageFileUploadError(
             'Could not upload image (File must be less than 2MB)'
           );
@@ -81,8 +82,8 @@ export default function DashProfile() {
           });
         }
       );
-    };
-      
+      }
+
     const handleChange = (e) => {
       setFormData({... formData, [e.target.id]: e.target.value});
     }
@@ -155,8 +156,8 @@ export default function DashProfile() {
     } catch (error) {
       console.log(error.message);
     }
-  };
-
+  }
+  
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
 
@@ -255,7 +256,7 @@ export default function DashProfile() {
             </h3>
             <div className='flex justify-center gap-4'>
               <Button color='failure' onClick={handleDeleteUser}>
-                Yes, I'm sure
+                Yes, I`m sure
               </Button>
               <Button color='gray' onClick={() => setShowModal(false)}>
                 No, cancel
@@ -266,6 +267,8 @@ export default function DashProfile() {
       </Modal>
 
     </div>
-  )
-}
+  );
+  
+      
+      }  
 
