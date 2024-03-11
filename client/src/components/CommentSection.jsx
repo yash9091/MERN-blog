@@ -2,7 +2,7 @@ import { Alert, Button, Modal, TextInput, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-// import Comment from './Comment';
+import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 export default function CommentSection({ postId }) {
@@ -110,6 +110,8 @@ export default function CommentSection({ postId }) {
       console.log(error.message);
     }
   };
+
+
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
       {currentUser ? (
