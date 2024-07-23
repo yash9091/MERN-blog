@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 app.use(cors(
   {
-     origin:["https://mern-blog-api-beta.vercel.app"],
+     origin:["https://mern-blog-frontend-azure.vercel.app"],
      methods: ["GET", "POST", "PUT",],
      credentials: true
   }
