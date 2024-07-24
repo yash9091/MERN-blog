@@ -8,6 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
+<<<<<<< HEAD
       try {
         const res = await fetch('/api/post/getposts');
         
@@ -28,6 +29,11 @@ export default function Home() {
         console.error('Error fetching posts:', error);
         setError(error.message);
       }
+=======
+      const res = await fetch('/api/post/getposts');
+      const data = await res.json();  
+      setPosts(data.posts);
+>>>>>>> 4e76ee2b66db5dd242c572a5b24d154856a4bfc0
     };
     fetchPosts();
   }, []);
