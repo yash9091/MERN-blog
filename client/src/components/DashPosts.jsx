@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-// import { set } from 'mongoose';
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
@@ -35,7 +34,7 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `https://mern-blog-api-beta.vercel.app/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -53,7 +52,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `https://mern-blog-api-beta.vercel.app/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: 'DELETE',
         }

@@ -1,5 +1,4 @@
-import { Button } from 'flowbite-react'
-import { set } from 'mongoose';
+
 import React, { useState , useEffect} from 'react'
 
 
@@ -18,17 +17,6 @@ export default function ImageSlider() {
    
 
 
-    const handlePreviosClick= ()=>{
-        if (activeImageIndex===0){
-            setActiveImageIndex(data.length - 1);
-        }
-        else{
-            setActiveImageIndex(activeImageIndex - 1)
-        }
-       
-
-
-    }
 
     const handleNextClick = ()=> {
         if (activeImageIndex=== data.length-1){

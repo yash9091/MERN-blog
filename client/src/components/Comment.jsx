@@ -12,7 +12,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`https://mern-blog-api-beta.vercel.app/api/user/${comment.userId}`);
+        const res = await fetch(`/api/user/${comment.userId}`);
         const data = await res.json();
         if (res.ok) {
           setUser(data);
@@ -31,7 +31,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`https://mern-blog-api-beta.vercel.app/api/comment/editComment/${comment._id}`, {
+      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
