@@ -10,7 +10,7 @@ export default function Home() {
     const fetchPosts = async () => {
 
       try {
-        const res = await fetch('/api/post/getposts');
+        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts');
         
         // Check if the response is not OK (status in the range 200-299)
         if (!res.ok) {
@@ -29,11 +29,9 @@ export default function Home() {
         console.error('Error fetching posts:', error);
         setError(error.message);
       }
-=======
-      const res = await fetch('/api/post/getposts');
+      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts');
       const data = await res.json();  
       setPosts(data.posts);
->>>>>>> 4e76ee2b66db5dd242c572a5b24d154856a4bfc0
     };
     fetchPosts();
   }, []);
