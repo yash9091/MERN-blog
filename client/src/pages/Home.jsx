@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-<<<<<<< HEAD
+
       try {
         const res = await fetch('/api/post/getposts');
         
