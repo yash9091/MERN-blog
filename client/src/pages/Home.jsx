@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
+import { Spinner } from "flowbite-react";
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,9 +29,11 @@ export default function Home() {
         
         const data = await res.json();
         setPosts(data.posts);
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching posts:', error);
         setError(error.message);
+        setLoading(false)
       }
       const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts');
       const data = await res.json();  
@@ -36,6 +42,13 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen'>
+           <Spinner aria-label="Default status example" size='lg' />;
+      </div>
+    );
+  
   return (
     <div>
       <div className="bg-gray-900 py-20">
