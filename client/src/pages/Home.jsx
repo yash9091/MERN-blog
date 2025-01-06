@@ -1,14 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
+import { useDispatch } from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice'
+import { Spinner } from "flowbite-react";
+
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     const fetchPosts = async () => {
-<<<<<<< HEAD
       try {
         const res = await fetch('/api/post/getposts');
         
@@ -25,18 +33,22 @@ export default function Home() {
         
         const data = await res.json();
         setPosts(data.posts);
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching posts:', error);
         setError(error.message);
+        setLoading(false)
       }
-=======
-      const res = await fetch('/api/post/getposts');
-      const data = await res.json();  
-      setPosts(data.posts);
->>>>>>> 4e76ee2b66db5dd242c572a5b24d154856a4bfc0
     };
     fetchPosts();
   }, []);
+
+  if (loading)
+    return (
+      <div className='flex justify-center items-center min-h-screen'>
+           <Spinner aria-label="Default status example" size='lg' />
+      </div>
+    );
 
   return (
     <div>
@@ -52,9 +64,14 @@ export default function Home() {
                 Here you will get blogs related to programming, software engineering, and trending technologies.
               </p>
               <div className="flex gap-2">
+                <button  onClick={()=> dispatch(toggleTheme())}>
+               
                 <a href="#" className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-md">
                   Scroll Down for posts
                 </a>
+
+                </button>
+                
               </div>
             </div>
             <div className="md:w-1/2 lg:w-1/3 mt-8 md:mt-0">
