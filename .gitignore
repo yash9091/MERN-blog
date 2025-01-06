@@ -24,8 +24,4 @@ dist-ssr
 *.sw?
 .env
 
-MONGO='mongodb+srv://yash26985:Iamyash@mern-blog.m6bhycg.mongodb.net/mern-blog?retryWrites=true&w=majority&appName=mern-blog'
 
-JWT_SECRET = 'yash'
-
-VITE_FIREBASE_API_KEY=  "AIzaSyDOmkFTHORWpE7fIhCUj_4rqoAK8LL8szg"

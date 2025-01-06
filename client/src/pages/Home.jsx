@@ -6,6 +6,8 @@ import { toggleTheme } from '../redux/theme/themeSlice'
 import { Spinner } from "flowbite-react";
 
 
+import { Spinner } from "flowbite-react";
+
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -14,11 +16,13 @@ export default function Home() {
 
   const dispatch = useDispatch()
 
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('/api/post/getposts');
+        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts');
         
         // Check if the response is not OK (status in the range 200-299)
         if (!res.ok) {
@@ -34,11 +38,16 @@ export default function Home() {
         const data = await res.json();
         setPosts(data.posts);
         setLoading(false)
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching posts:', error);
         setError(error.message);
         setLoading(false)
+        setLoading(false)
       }
+      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts');
+      const data = await res.json();  
+      setPosts(data.posts);
     };
     fetchPosts();
   }, []);
