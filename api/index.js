@@ -26,9 +26,13 @@ app.use(express.json());
 
 app.use(cookieParser());
 
+// const CLIENT_URL_PROD =process.env.PROD_CLIENT_URL;
+const CLIENT_URL_DEV =process.env.DEV_CLIENT_URL;
+console.log("<<<",CLIENT_URL_DEV)
+
 app.use(cors(
   {
-     origin:["https://mern-blog-frontend-azure.vercel.app"],
+     origin: CLIENT_URL_DEV,
      methods: ["GET", "POST", "PUT",],
      credentials: true
   }
