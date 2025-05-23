@@ -8,6 +8,8 @@ import {
 } from 'react-icons/hi';
 import { Button, Table } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function DashboardComp() {
   const [users, setUsers] = useState([]);
@@ -20,10 +22,13 @@ export default function DashboardComp() {
   const [lastMonthPosts, setLastMonthPosts] = useState(0);
   const [lastMonthComments, setLastMonthComments] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
+    const { API_URL } = useContext(ApiContext);
+
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/user/getusers?limit=5');
+        const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -36,7 +41,7 @@ export default function DashboardComp() {
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/getposts?limit=5');
+        const res = await fetch(`${API_URL}/api/post/getposts?limit=5`);
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -49,7 +54,7 @@ export default function DashboardComp() {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/comment/getcomments?limit=5');
+        const res = await fetch(`${API_URL}/api/comment/getcomments?limit=5`);
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);

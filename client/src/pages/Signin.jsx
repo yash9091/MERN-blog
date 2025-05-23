@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 
 export default function SignIn() {
@@ -10,6 +12,9 @@ export default function SignIn() {
   const {loading,error: errorMessage}= useSelector(state => state.user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+    const { API_URL } = useContext(ApiContext);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
@@ -20,7 +25,7 @@ export default function SignIn() {
     }
     try {
       dispatch(signInStart());
-      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/auth/signin', {
+      const res = await fetch(`${API_URL}/api/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

@@ -6,6 +6,8 @@ import {FaMoon,FaSun} from 'react-icons/fa'
 import {useSelector ,useDispatch} from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice'
 import { signoutSuccess } from '../redux/user/userSlice'
+import { useContext } from 'react'
+import { ApiContext } from '../context/ApiContext'
 export default function Header() {
 
   const path = useLocation().pathname;
@@ -15,6 +17,9 @@ export default function Header() {
   const { theme } = useSelector((state) => state.theme);
   const [searchTerm, setSearchTerm]= useState('')
   const navigate = useNavigate();
+    const { API_URL } = useContext(ApiContext);
+
+
 
 
 
@@ -30,7 +35,7 @@ export default function Header() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/user/signout', {
+      const res = await fetch(`${API_URL}/api/user/signout`, {
         method: 'POST',
       });
       const data = await res.json();

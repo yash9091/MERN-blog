@@ -5,11 +5,15 @@ import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function OAuth() {
     const auth = getAuth(app)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+      const { API_URL } = useContext(ApiContext);
+
     const handleGoogleClick = async () =>{
         const provider = new GoogleAuthProvider()
         provider.setCustomParameters({ prompt: 'select_account' })
@@ -17,7 +21,7 @@ export default function OAuth() {
             const resultsFromGoogle = await signInWithPopup(auth, provider)
             console.log(resultsFromGoogle)
             
-            const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/auth/google', {
+            const res = await fetch(`${API_URL}/api/auth/google`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

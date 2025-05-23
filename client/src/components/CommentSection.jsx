@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -13,13 +15,15 @@ export default function CommentSection({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+    const { API_URL } = useContext(ApiContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comment.length > 200) {
       return;
     }
     try {
-      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/comment/create', {
+      const res = await fetch(`${API_URL}/api/comment/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +48,7 @@ export default function CommentSection({ postId }) {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/comment/getPostComments/${postId}`);
+        const res = await fetch(`${API_URL}/api/comment/getPostComments/${postId}`);
         if (res.ok) {
           const data = await res.json();
           setComments(data);
@@ -62,7 +66,7 @@ export default function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
-      const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/comment/likeComment/${commentId}`, {
+      const res = await fetch(`${API_URL}/api/comment/likeComment/${commentId}`, {
         method: 'PUT',
       });
       if (res.ok) {
@@ -99,7 +103,7 @@ export default function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
-      const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/comment/deleteComment/${commentId}`, {
+      const res = await fetch(`${API_URL}/api/comment/deleteComment/${commentId}`, {
         method: 'DELETE',
       });
       if (res.ok) {

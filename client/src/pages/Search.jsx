@@ -2,6 +2,8 @@ import { Button, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PostCard from '../components/PostCard';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -18,6 +20,9 @@ export default function Search() {
   const location = useLocation();
 
   const navigate = useNavigate();
+
+    const { API_URL } = useContext(ApiContext);
+
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -36,7 +41,7 @@ export default function Search() {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`${API_URL}/api/post/getposts?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
         return;
@@ -85,7 +90,7 @@ export default function Search() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/post/getposts?${searchQuery}`);
+    const res = await fetch(`${API_URL}/api/post/getposts?${searchQuery}`);
     if (!res.ok) {
       return;
     }

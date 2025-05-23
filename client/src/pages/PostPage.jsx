@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import CallToAction from '../components/CallToAction';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -11,12 +13,14 @@ export default function PostPage() {
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
+    const { API_URL } = useContext(ApiContext);
+
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/post/getposts?slug=${postSlug}`);
+        const res = await fetch(`${API_URL}/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
         if (!res.ok) {
           setError(true);
@@ -39,7 +43,7 @@ export default function PostPage() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`https://mern-blog-backend-oscu.onrender.com/api/post/getposts?limit=3`);
+        const res = await fetch(`${API_URL}/api/post/getposts?limit=3`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);

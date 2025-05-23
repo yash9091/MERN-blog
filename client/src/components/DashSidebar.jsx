@@ -12,12 +12,16 @@ import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useContext } from 'react';
+import { ApiContext } from '../context/ApiContext';
 
 export default function DashSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState('');
+    const { API_URL } = useContext(ApiContext);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
@@ -27,7 +31,7 @@ export default function DashSidebar() {
   }, [location.search]);
   const handleSignout = async () => {
     try {
-      const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/user/signout', {
+      const res = await fetch(`${API_URL}/api/user/signout`, {
         method: 'POST',
       });
       const data = await res.json();

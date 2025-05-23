@@ -13,6 +13,8 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { app } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { ApiContext } from "../context/ApiContext";
 
 
 
@@ -25,6 +27,8 @@ export default function CreatePost() {
     const [imageUploadError, setImageUploadError] = useState(null);
     const [publishError, setPublishError] = useState(null);
     const navigate = useNavigate();
+      const { API_URL } = useContext(ApiContext);
+
 
     const handleUpdloadImage = async () => {
       try {
@@ -66,7 +70,7 @@ export default function CreatePost() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch('https://mern-blog-backend-oscu.onrender.com/api/post/create', {
+        const res = await fetch(`${API_URL}/api/post/create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
