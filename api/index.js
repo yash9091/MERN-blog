@@ -26,13 +26,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-// const CLIENT_URL_PROD =process.env.PROD_CLIENT_URL;
-const CLIENT_URL_DEV =process.env.DEV_CLIENT_URL;
-console.log("<<<",CLIENT_URL_DEV)
+const CLIENT_URL_PROD =process.env.PROD_CLIENT_URL;
+// const CLIENT_URL_DEV =process.env.DEV_CLIENT_URL;
 
 app.use(cors(
   {
-     origin: CLIENT_URL_DEV,
+     origin: CLIENT_URL_PROD,
      methods: ["GET", "POST", "PUT",],
      credentials: true
   }
