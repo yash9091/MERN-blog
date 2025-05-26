@@ -63,6 +63,10 @@ export default function DashUsers() {
     try {
         const res = await fetch(`${API_URL}/api/user/delete/${userIdToDelete}`, {
             method: 'DELETE',
+           headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         });
         const data = await res.json();
         if (res.ok) {
