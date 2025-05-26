@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput, Textarea } from 'flowbite-react';
+import { Alert, Button, Modal, TextInput, Textarea, Toast } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useContext } from 'react';
 import { ApiContext } from '../context/ApiContext';
+import { toast } from 'react-toastify';
 
 export default function CommentSection({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -107,11 +108,22 @@ export default function CommentSection({ postId }) {
       }
       const res = await fetch(`${API_URL}/api/comment/deleteComment/${commentId}`, {
         method: 'DELETE',
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
       });
       if (res.ok) {
         const data = await res.json();
         setComments(comments.filter((comment) => comment._id !== commentId));
-      }
+        toast.success('Comment deleted successfully!', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+    } else {
+      toast.error('Failed to delete comment.', {
+        position: 'top-right',
+      });}
     } catch (error) {
       console.log(error.message);
     }

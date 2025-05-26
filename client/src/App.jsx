@@ -16,12 +16,14 @@ import UpdatePost from './pages/UpdatePost'
 import PostPage from './pages/PostPage'
 import ScrollToTop from './components/ScrollToTop'
 import Search from './pages/Search'
+import { ToastContainer } from 'react-toastify'
 
 export default function App() {
   return (
    <BrowserRouter>
    <ScrollToTop/>
    <Header/>
+   <ToastContainer/>
      <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/about' element={<About/>}></Route>
