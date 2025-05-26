@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { Spinner } from "flowbite-react";
 import { ApiContext } from "../context/ApiContext.js";
@@ -13,9 +13,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-    const { currentUser } = useSelector((state) => state.user);
-    console.log("curr", currentUser)
-  
 
 
   const { API_URL } = useContext(ApiContext);

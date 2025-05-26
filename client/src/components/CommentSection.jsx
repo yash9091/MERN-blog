@@ -117,8 +117,6 @@ export default function CommentSection({ postId }) {
     }
   };
 
-  console.log(currentUser.username)
-
 
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
