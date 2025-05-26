@@ -29,6 +29,6 @@ Fullstack  blogging application made with MongoDB, Express, React & Nodejs (MERN
 
 ## LIVE SITE
 
-LIVE: https://yash-blogs.onrender.com/
+LIVE: https://mern-blog-frontend-azure.vercel.app/
 
 
