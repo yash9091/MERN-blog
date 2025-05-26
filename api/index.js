@@ -32,7 +32,7 @@ const CLIENT_URL_PROD =process.env.PROD_CLIENT_URL;
 app.use(cors(
   {
      origin: CLIENT_URL_PROD,
-     methods: ["GET", "POST", "PUT",],
+     methods: ["GET", "POST", "PUT","DELETE"],
      credentials: true
   }
 ))
