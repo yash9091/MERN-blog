@@ -23,12 +23,19 @@ export default function DashboardComp() {
   const [lastMonthComments, setLastMonthComments] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
     const { API_URL } = useContext(ApiContext);
+        const token = localStorage.getItem('token');
+
 
   
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/user/getusers?limit=5`);
+        const res = await fetch(`${API_URL}/api/user/getusers?limit=5`,{
+          headers: {
+                        Authorization: `Bearer ${token}`,
+
+          }
+        });
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -54,7 +61,12 @@ export default function DashboardComp() {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/comment/getcomments?limit=5`);
+        const res = await fetch(`${API_URL}/api/comment/getcomments?limit=5`,{
+          headers:{
+                        Authorization: `Bearer ${token}`,
+
+          }
+        });
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);

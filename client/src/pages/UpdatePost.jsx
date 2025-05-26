@@ -17,6 +17,8 @@ import { useNavigate , useParams} from 'react-router-dom';
 import {  useSelector } from "react-redux";
 import { useContext } from "react";
 import { ApiContext } from "../context/ApiContext";
+    const token = localStorage.getItem('token');
+
 
 
 
@@ -30,6 +32,7 @@ export default function UpdatePost() {
     const {currentUser} = useSelector((state)=> state.user)
 const {postId} = useParams();
   const { API_URL } = useContext(ApiContext);
+  console.log("form", formData)
 
 
 useEffect(() => {
@@ -37,6 +40,7 @@ useEffect(() => {
       const fetchPost = async () => {
         const res = await fetch(`${API_URL}/api/post/getposts?postId=${postId}`);
         const data = await res.json();
+        console.log("<<", data);
         if (!res.ok) {
           console.log(data.message);
           setPublishError(data.message);
@@ -94,10 +98,12 @@ useEffect(() => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await fetch(`${API_URL}/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+        const res = await fetch(`${API_URL}/api/post/updatepost/${postId}/${currentUser._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+
           },
           body: JSON.stringify(formData),
         });

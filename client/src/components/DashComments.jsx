@@ -12,11 +12,18 @@ export default function DashComments() {
   const [showModal, setShowModal] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState('');
     const { API_URL } = useContext(ApiContext);
+        const token = localStorage.getItem('token');
+
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/comment/getcomments`);
+        const res = await fetch(`${API_URL}/api/comment/getcomments`,{
+          headers: {
+                        Authorization: `Bearer ${token}`,
+
+          }
+        });
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
@@ -37,7 +44,11 @@ export default function DashComments() {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `${API_URL}/api/comment/getcomments?startIndex=${startIndex}`
+        `${API_URL}/api/comment/getcomments?startIndex=${startIndex}`,{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -58,6 +69,10 @@ export default function DashComments() {
         `${API_URL}/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: 'DELETE',
+          headers: {
+                        Authorization: `Bearer ${token}`,
+
+          }
         }
       );
       const data = await res.json();

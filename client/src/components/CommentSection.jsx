@@ -16,6 +16,7 @@ export default function CommentSection({ postId }) {
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
     const { API_URL } = useContext(ApiContext);
+    const token = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +28,7 @@ export default function CommentSection({ postId }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           content: comment,
@@ -114,6 +116,8 @@ export default function CommentSection({ postId }) {
       console.log(error.message);
     }
   };
+
+  console.log(currentUser.username)
 
 
   return (
